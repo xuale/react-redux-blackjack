@@ -8,7 +8,11 @@ import { statuses } from '../reducers/index';
 class Controller extends Component {
 	constructor() {
 		super();
+    this.state = {status: 'Playing'};
 	}
+  componentWillReceiveProps(nextProps) {
+    this.setState({status: nextProps.status});
+  }
 	render() {
     return (
       <div>
@@ -27,10 +31,16 @@ class Controller extends Component {
         <button onClick={new_deck}>
           Refresh deck
         </button>
-        <h1> {status} </h1>
+        <h1> {this.state.status} </h1>
       </div>
     )
   }
 }
 
 export default Controller
+
+const mapStateToProps = (state) => {
+      status: state.status
+};
+
+export default connect(mapStateToProps)(Controller)
